@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Конструктор языковых детективных расследований для преподавателей" />
+  <title>Language Mystery Builder</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">LM</div>
+        <div>
+          <strong>Language Mystery</strong>
+          <span>Builder</span>
+        </div>
+      </div>
+      <nav class="steps" id="stepsNav">
+        <button class="step-link active" data-target="lesson"><span>01</span>Профиль урока</button>
+        <button class="step-link" data-target="case"><span>02</span>Детективное дело</button>
+        <button class="step-link" data-target="evidence"><span>03</span>Материалы дела</button>
+        <button class="step-link" data-target="workbook"><span>04</span>Workbook</button>
+        <button class="step-link" data-target="result"><span>05</span>Промпты</button>
+      </nav>
+      <div class="sidebar-note">
+        <span class="dot"></span>
+        <div><b>Connected Investigation</b><br><small>каждое задание может открывать новую улику</small></div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">AI-конструктор для преподавателей языков</p>
+          <h1>Соберите расследование, которое ученики раскрывают через язык</h1>
+        </div>
+        <div class="top-actions">
+          <button class="ghost" id="saveDraftBtn">Сохранить черновик</button>
+          <button class="ghost" id="resetBtn">Сбросить</button>
+        </div>
+      </header>
+
+      <section class="panel" id="lesson">
+        <div class="section-head">
+          <div><span class="kicker">01</span><h2>Профиль урока</h2><p>Сначала задайте методические рамки. Поля со звёздочкой влияют на все следующие рекомендации.</p></div>
+          <span class="badge">1–2 минуты</span>
+        </div>
+
+        <div class="segmented" id="modeControl">
+          <button class="active" data-mode="auto">✨ Собрать лучший вариант за меня</button>
+          <button data-mode="manual">Настроить вручную</button>
+          <button data-mode="expert">Экспертный режим</button>
+        </div>
+
+        <div class="form-grid four">
+          <label>Язык *<input id="language" value="English" placeholder="English, German, Spanish..." /></label>
+          <label>Уровень *<select id="level"><option>A0 / Pre-A1</option><option selected>A1</option><option>A2</option><option>B1</option><option>B2</option><option>C1</option></select></label>
+          <label>Возраст *<input id="age" type="number" value="12" min="5" max="99" /></label>
+          <label>Длительность<select id="duration"><option>20 минут</option><option>30 минут</option><option selected>45 минут</option><option>60 минут</option><option>90 минут</option></select></label>
+        </div>
+        <div class="form-grid two">
+          <label>Целевая лексика<textarea id="vocab" placeholder="Например: travel, luggage, directions, airport vocabulary"></textarea></label>
+          <label>Целевая грамматика<textarea id="grammar" placeholder="Например: Past Simple, question forms, prepositions of place"></textarea></label>
+        </div>
+
+        <div class="field-block">
+          <div class="field-title"><b>Приоритетные навыки</b><span>можно выбрать несколько</span></div>
+          <div class="chips multi" id="skillChips">
+            <button class="selected" data-value="Listening">Listening</button><button data-value="Reading">Reading</button><button data-value="Vocabulary">Vocabulary</button><button data-value="Grammar">Grammar</button><button class="selected" data-value="Speaking">Speaking</button><button data-value="Writing">Writing</button><button data-value="Logic & inference">Logic & inference</button>
+          </div>
+        </div>
+
+        <details class="advanced">
+          <summary>Дополнительные настройки урока</summary>
+          <div class="form-grid three advanced-grid">
+            <label>Формат работы<select id="classFormat"><option>Индивидуально</option><option>Пара</option><option selected>Группа</option></select></label>
+            <label>Сложность дела<select id="difficulty"><option>Лёгкая</option><option selected>Средняя</option><option>Сложная</option></select></label>
+            <label>Связность<select id="integration"><option>Practice — сюжет как контекст</option><option>Integrated — задания дают улики</option><option selected>Full Investigation — всё двигает дело</option></select></label>
+            <label>Тон<select id="tone"><option selected>Увлекательный, без мрачности</option><option>Юмористический</option><option>Реалистичный</option><option>Напряжённый, но безопасный</option></select></label>
+            <label>Новая лексика<select id="newVocab"><option>Только заданная</option><option selected>Немного новой, понятной из контекста</option><option>Можно расширять лексику</option></select></label>
+            <label>Подсказки<select id="hints"><option>Без подсказок</option><option selected>Точечные подсказки</option><option>Подробные опоры</option></select></label>
+          </div>
+        </details>
+      </section>
+
+      <section class="panel" id="case">
+        <div class="section-head">
+          <div><span class="kicker">02</span><h2>Выберите детективное дело</h2><p>У каждого дела есть свой возрастной профиль, тип улик и рекомендуемые форматы заданий.</p></div>
+          <span class="badge" id="caseCountBadge">30 сюжетов</span>
+        </div>
+        <div class="toolbar">
+          <input class="search" id="caseSearch" placeholder="Поиск по сюжету или тегу..." />
+          <select id="caseFilter"><option value="all">Все категории</option><option value="school">Школа</option><option value="travel">Путешествия</option><option value="city">Город</option><option value="digital">Цифровой мир</option><option value="mystery">Классическая загадка</option></select>
+        </div>
+        <div class="case-grid" id="caseGrid"></div>
+      </section>
+
+      <section class="panel" id="evidence">
+        <div class="section-head">
+          <div><span class="kicker">03</span><h2>Материалы расследования</h2><p>Можно ограничиться одним аудио или собрать полноценный case file из нескольких источников.</p></div>
+        </div>
+        <div class="form-grid four">
+          <label>Количество материалов<select id="evidenceCount"><option>1</option><option selected>2</option><option>3</option><option>4</option><option>5</option></select></label>
+          <label>Длина основного аудио<select id="audioLength"><option>30–45 сек</option><option selected>60–90 сек</option><option>2–3 мин</option><option>3–5 мин</option></select></label>
+          <label>Количество говорящих<select id="speakers"><option>1</option><option selected>2</option><option>3</option><option>4–5</option></select></label>
+          <label>Транскрипт<select id="transcript"><option>Только для учителя</option><option selected>Для учителя + опционально ученику</option><option>Не нужен</option></select></label>
+        </div>
+        <div class="field-block">
+          <div class="field-title"><b>Типы материалов</b><span>выберите до 5</span></div>
+          <div class="evidence-options" id="evidenceOptions"></div>
+        </div>
+        <div class="form-grid three">
+          <label>Вариант языка / акцент<input id="accent" placeholder="Например: British English" /></label>
+          <label>Скорость речи<select id="speechRate"><option>Медленнее естественной</option><option selected>Естественная для уровня</option><option>Естественная</option></select></label>
+          <label>SFX<select id="sfx"><option selected>Лёгкие атмосферные</option><option>Без SFX</option><option>Выразительные кинематографичные</option></select></label>
+        </div>
+      </section>
+
+      <section class="panel" id="workbook">
+        <div class="section-head">
+          <div><span class="kicker">04</span><h2>Соберите Workbook</h2><p>Выберите 4–10 заданий вручную или позвольте конструктору собрать связное расследование.</p></div>
+          <button class="primary" id="autoBuildBtn">✨ Подобрать задания</button>
+        </div>
+        <div class="workbook-layout">
+          <div>
+            <div class="toolbar task-toolbar">
+              <input class="search" id="taskSearch" placeholder="Найти формат задания..." />
+              <select id="taskSkillFilter"><option value="all">Все навыки</option><option>Listening</option><option>Reading</option><option>Vocabulary</option><option>Grammar</option><option>Speaking</option><option>Writing</option><option>Logic & inference</option><option>Integrated</option></select>
+            </div>
+            <div class="recommendation-strip" id="recommendationStrip"></div>
+            <div class="task-grid" id="taskGrid"></div>
+          </div>
+          <aside class="builder-card">
+            <div class="builder-head"><div><b>Структура Workbook</b><small id="selectedCount">0 / 10 заданий</small></div><button class="link-btn" id="clearTasksBtn">Очистить</button></div>
+            <div id="selectedTasks" class="selected-list"><div class="empty">Добавьте задания из каталога</div></div>
+            <div class="custom-task">
+              <input id="customTask" placeholder="Свой формат задания..." />
+              <button id="addCustomBtn">+</button>
+            </div>
+            <label class="switch-row"><input type="checkbox" id="evidenceBoard" checked /><span>Добавить Evidence Board</span></label>
+            <label class="switch-row"><input type="checkbox" id="answerKey" checked /><span>Answer key + объяснения</span></label>
+            <label class="switch-row"><input type="checkbox" id="finalVerdict" checked /><span>Финальный Verdict обязателен</span></label>
+          </aside>
+        </div>
+      </section>
+
+      <section class="panel result-panel" id="result">
+        <div class="section-head">
+          <div><span class="kicker">05</span><h2>Готовые промпты</h2><p>Сначала генерируется сценарий и карта улик. Затем Workbook строится уже на готовом расследовании — так задания меньше «галлюцинируют» детали.</p></div>
+          <button class="primary large" id="generateBtn">Сгенерировать промпты</button>
+        </div>
+        <div class="quality-rules">
+          <div>✓ Решение опирается только на существующие улики</div><div>✓ Ответ не раскрывается до Final Verdict</div><div>✓ Язык соответствует уровню</div><div>✓ У каждого задания есть учебная цель</div>
+        </div>
+        <div class="output-tabs">
+          <button class="active" data-tab="audioPrompt">Prompt 1 · Script & Evidence</button>
+          <button data-tab="workbookPrompt">Prompt 2 · Workbook</button>
+          <button data-tab="teacherBrief">Teacher Brief</button>
+        </div>
+        <div class="output-wrap">
+          <textarea id="audioPrompt" class="output active" readonly placeholder="Здесь появится промпт для генерации аудиосценария..."></textarea>
+          <textarea id="workbookPrompt" class="output" readonly placeholder="Здесь появится промпт для генерации Workbook..."></textarea>
+          <textarea id="teacherBrief" class="output" readonly placeholder="Здесь появится краткое ТЗ урока..."></textarea>
+          <button class="copy-btn" id="copyBtn">Копировать</button>
+        </div>
+      </section>
+    </main>
+  </div>
+  <div id="toast" class="toast"></div>
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
