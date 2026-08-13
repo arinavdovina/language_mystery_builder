@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Language Mystery Builder</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <div class="logo">🕵️ Language Mystery Builder</div>
+  <p>Создавайте языковые расследования: сюжет → аудио → улики → Workbook</p>
+</header>
+
+<main>
+<section class="card">
+<h2>1. Профиль урока</h2>
+<div class="grid">
+<label>Язык<input id="language" placeholder="English"></label>
+<label>Уровень<select id="level"><option>A1</option><option>A2</option><option>B1</option><option>B2</option></select></label>
+<label>Возраст<input id="age" placeholder="12 лет"></label>
+<label>Навык<select id="skill"><option>Listening</option><option>Vocabulary</option><option>Grammar</option><option>Speaking</option><option>Writing</option></select></label>
+</div>
+<label>Лексика<input id="vocab" placeholder="travel, crime, emotions..."></label>
+<label>Грамматика<input id="grammar" placeholder="Past Simple, questions..."></label>
+</section>
+
+<section class="card">
+<h2>2. Выберите дело</h2>
+<div id="cases" class="cases"></div>
+</section>
+
+<section class="card">
+<h2>3. Workbook</h2>
+<p>Выберите задания:</p>
+<div id="tasks" class="tasks"></div>
+</section>
+
+<section class="card">
+<button onclick="generate()">Создать расследование</button>
+<pre id="result"></pre>
+</section>
+</main>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
